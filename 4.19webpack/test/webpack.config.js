@@ -11,6 +11,7 @@ module.exports = {
         publicPath: '/dist'
     },
     resolve:{
+        extensions:[".js", ".jsx", ".json"], //表示文件的后缀名，可以省略不写。
         alias:{
             '@':path.resolve(__dirname, 'src'),
             'css':path.resolve(__dirname, 'src/css'),
@@ -60,7 +61,13 @@ module.exports = {
             {
                 test: /\.(eot|ttf|svg|woff2?)$/,
                 use: ['file-loader']
-            }
+            },
+            {
+                test: /\.(js|jsx)$/,
+                include: '/src',
+                exclude: '/node_modules',
+                use: ['babel-loader'], // 省略js后缀名
+            }, 
         ]
     },
 }
