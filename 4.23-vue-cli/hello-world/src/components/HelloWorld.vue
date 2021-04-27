@@ -1,78 +1,88 @@
 <template>
-  <div class="hello">
-    <h1 @click="click">{{ msg }}</h1>
-     <img :src="imgs[active]" alt="" />
+  <div id="app">
+    <button @click="click">点击我控制图片展示隐藏</button>
+    <p v-text="msg"></p>
+    <p>{{ msg }}</p>
+    <div v-html="dom"></div>
+    <img id="img1" v-show="imgShow" src="./assets/logo.png" />
+    <img id="img2" v-if="imgShow" src="./assets/meituan1.png" />
+    <div>
+      <p v-if="week == 7">周日休息不上课</p>
+      <p v-else-if="week == 6">周六上半天课</p>
+      <p v-else>上全天课</p>
+    </div>
+    <ul>
+      <li v-for="item in list" :key="item.id">
+        <b>{{ item.id }}</b>
+        <span>{{ item.name }}</span>
+      </li>
+    </ul>
+    <div>
+      <input type="text" v-model="inputValue" />
+      <button @click="getInputValue">获取输入内容</button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
-  props: {
-    msg: String,
-  },
+  name: "App",
   data() {
     return {
-      a: "1111",
-      imgs: [
-        'https://img.alicdn.com/imgextra/i1/3/O1CN01g0KcJY1BtPrYYRIFA_!!3-0-luban.jpg',
-        'https://aecpm.alicdn.com/simba/img/TB1CWf9KpXXXXbuXpXXSutbFXXX.jpg_q50.jpg',
-        'https://img.alicdn.com/imgextra/i1/2206686532409/O1CN019xOIUj1TfMnOSwkX7_!!2206686532409-0-lubanimage.jpg'
+      inputValue: "请输入",
+      msg: "我是一段文本",
+      dom: "<b>加粗文本标签</b>",
+      imgShow: true,
+      week: 1,
+      list: [
+        {
+          id: 1,
+          name: "专业",
+        },
+        {
+          id: 2,
+          name: "专高",
+        },
+        {
+          id: 3,
+          name: "大实训",
+        },
       ],
-      active: 0
     };
-  },
-  beforeCreate() {
-    console.log("实例被创建之前");
-  },
-  create() {
-    console.log("实例被创建之后");
-    
-  },
-  beforeMount() {
-    console.log(333, this);
-  },
-  mounted() {
-    console.log(444);
-    setInterval(()=>{
-      this.active = (this.active+1)%this.imgs.length
-    }, 1000);
-  },
-  beforeUpdate() {
-    console.log(555);
-  },
-  updated() {
-    console.log(666);
-  },
-  beforeDestory() {
-    console.log(777);
-  },
-  destoryed() {
-    console.log(888);
   },
   methods: {
     click() {
-      console.log("事件");
+      this.imgShow = !this.imgShow;
+    },
+    getInputValue() {
+      console.log(this.inputValue);
     },
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-// sass-loader需要下载10.1.1版本
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
+<style>
+* {
+  margin: 0;
   padding: 0;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  margin: 20px;
 }
-a {
-  color: #42b983;
+img {
+  width: 180px;
+  height: 180px;
+}
+ul {
+  width: 300px;
+  border: 1px solid #000;
+  list-style: none;
+}
+ul li:nth-child(2n) {
+  background: #fdd;
 }
 </style>
