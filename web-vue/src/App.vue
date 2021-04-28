@@ -34,38 +34,46 @@
         <div><button @click="closeConfirm">确定</button></div>
       </div>
     </div>
+    <HelloWorld :clickEvent="changeMsg" :msg="msg" />
   </div>
 </template>
 
 <script>
+import HelloWorld from "./components/HelloWorld.vue";
 export default {
-  name: 'App',
+  name: "App",
+  components: {
+    HelloWorld,
+  },
   data() {
     return {
       listModel: false,
       confirmModel: false,
-      inputValue: '',
-      value: '',
-      msg: '我是一段文本',
-      dom: '<b>加粗文本标签</b>',
+      inputValue: "",
+      value: "",
+      msg: "我是一段文本",
+      dom: "<b>加粗文本标签</b>",
       week: 1,
       list: [
         {
           id: 1,
-          name: '专业',
+          name: "专业",
         },
         {
           id: 2,
-          name: '专高',
+          name: "专高",
         },
         {
           id: 3,
-          name: '大实训',
+          name: "大实训",
         },
       ],
     };
   },
   methods: {
+    changeMsg(str) {
+      this.msg=str
+    },
     openListModel() {
       this.listModel = true;
     },
