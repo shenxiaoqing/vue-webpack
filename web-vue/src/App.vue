@@ -1,18 +1,10 @@
 <template>
   <div id="app">
-    <div class="btns">
+    <!-- <div class="btns">
       <button @click="listModel = true">列表弹窗</button>
       <button @click="openConfirm">prompt弹窗</button>
-    </div>
-    <div>
-      <b>今天上课吗？</b>
-      <div>
-        <p v-if="week == 7">周日休息不上课</p>
-        <p v-else-if="week == 6">周六上半天课</p>
-        <p v-else>上全天课</p>
-      </div>
-    </div>
-    <div class="mark" v-show="listModel">
+    </div> -->
+    <!-- <div class="mark" v-show="listModel">
       <div class="model listModel">
         <span class="close" @click="closeListModel">❌</span>
         <h3>我是列表弹窗</h3>
@@ -23,8 +15,8 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div class="mark" v-show="confirmModel">
+    </div> -->
+    <!-- <div class="mark" v-if="confirmModel">
       <div class="model listModel">
         <span class="close" @click="closeConfirm">❌</span>
         <h3>我是prompt弹窗</h3>
@@ -33,46 +25,49 @@
         </div>
         <div><button @click="closeConfirm">确定</button></div>
       </div>
+    </div> -->
+
+    <!-- <div class="tabCont">
+      <ul class="tab">
+        <li
+          v-for="(item, index) in list"
+          :key="item.id"
+          @click="activeIndex = index"
+        >
+          <b :class="activeIndex == index ? 'active' : ''">{{ item.name }}</b>
+        </li>
+      </ul>
+      <div>{{ list[activeIndex].name }}</div>
+    </div> -->
+    <div>
+      <ul class="tab">
+        <li v-for="(item, index) in weeks" :key="index" @click="week = item">
+          <b :class="item == week ? 'active' : ''">{{ item }}</b>
+        </li>
+      </ul>
+      <div>
+        <h2>今天星期 <span v-text="week"></span></h2>
+        <h3 v-if="week == '日'">周日休息不上课</h3>
+        <h3 v-else-if="week == '六'">周六上半天课</h3>
+        <h3 v-else>上全天课</h3>
+      </div>
     </div>
-    <HelloWorld :clickEvent="changeMsg" :msg="msg" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
 export default {
   name: "App",
-  components: {
-    HelloWorld,
-  },
+  components: {},
   data() {
     return {
-      listModel: false,
-      confirmModel: false,
-      inputValue: "",
-      value: "",
-      msg: "我是一段文本",
-      dom: "<b>加粗文本标签</b>",
-      week: 1,
-      list: [
-        {
-          id: 1,
-          name: "专业",
-        },
-        {
-          id: 2,
-          name: "专高",
-        },
-        {
-          id: 3,
-          name: "大实训",
-        },
-      ],
+      weeks: ["一", "二", "三", "四", "五", "六", "日"],
+      week: "一",
     };
   },
   methods: {
     changeMsg(str) {
-      this.msg=str
+      this.msg = str;
     },
     openListModel() {
       this.listModel = true;
@@ -130,9 +125,6 @@ export default {
   position: relative;
   padding: 30px;
   border-radius: 10px;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
 }
 .close {
   position: absolute;
@@ -151,5 +143,27 @@ export default {
   bottom: 10px;
   background: limegreen;
   border: 0;
+}
+.input {
+  width: 30px;
+}
+.active {
+  color: #f00;
+}
+.tabCont {
+  width: 302px;
+  border: 1px solid #ccc;
+}
+.tab li {
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+.tabCont > div {
+  font-size: 30px;
+  padding: 30px;
 }
 </style>
